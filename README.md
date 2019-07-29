@@ -1,4 +1,4 @@
-# kodi2webos
+# kodi2webos [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)]
 A Kodi client for LG Smart TVs with webOS - experimental!!
 
 ## inspirations, tools, and more...
@@ -60,3 +60,22 @@ $ yarn run
 
 To run on an emulator or smart tv, see: http://webostv.developer.lge.com/sdk/installation/#
 Follow the steps in the article: https://medium.com/@raphamorim/developing-for-tvs-with-react-tv-b5b5204964ef
+
+## Goal!
+
+![alt text](https://img.ibxk.com.br/2019/03/22/netflix-22141026148281.jpg)
+
+## WIP
+- [x] websocket send/request communication
+  - [x] list movies/tvshows
+  - [x] works in browser
+  - [x] works in webos
+- [ ] Design interface
+  - [ ] Sections: Movies | TV Shows | Settings
+  - [ ] Horizontal List - Categories (Recently added, in progress, genres...)
+  - [ ] Vertical List
+  - [ ] Movies | TV Shows details
+  - [ ] Background image
+- [ ] Test key navigation
+- [ ] Publish to LG Store 
+- [ ] Documentation
