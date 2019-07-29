@@ -1,22 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { sendWSRequest } from './rpc/index.js';
-import videoLibrary from './rpc/video-library.js';
 import { generate as uuid } from 'shortid';
 import { imageFixURL } from './util';
 import debug from './util/debug.js';
 const logger = debug('useFetch');
 
 
-function useFetch() {
+function useFetch(request) {
 
     logger('executou useFetch');
   
     const [data, setData] = useState([]);
-    const request = videoLibrary.getMovies();
-  
+    
     //TODO: ver custom hooks
     useEffect(() => {
-  
       sendWSRequest(uuid(), request).then(function (data) {
         logger("mensagem recebida: " + data.id);
         if (data && data.result && data.result.movies.length > 0) {

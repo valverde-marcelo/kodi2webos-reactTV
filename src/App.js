@@ -2,7 +2,9 @@ import React, { useState, useEffect } from "react";
 import Navigation, { VerticalList, HorizontalList } from 'react-key-navigation'
 import FocusablePoster from './components/Poster';
 import FocusableList from './components/List';
+import Categoria from './components/Categoria';
 import useFetch from './useFetch';
+import {getMovies} from './rpc/video-library.js';
 
 import debug from './util/debug.js';
 
@@ -12,7 +14,9 @@ logger('iniciou App');
 function App(props) {
 
   //recupera os dados do websocket
-  const data = useFetch();
+  const data1 = useFetch(getMovies(0,5));
+
+  const data2 = useFetch(getMovies(5,10));
 
   return (
     <div>
@@ -24,7 +28,11 @@ function App(props) {
         <FocusablePoster focusPath='focusable-poster-3' src={'https://upload.wikimedia.org/wikipedia/en/b/bc/Interstellar_film_poster.jpg'} />
       </div>
       <div>
-        <FocusableList focusPath='focusable-list-1' data={data} />
+        <Categoria focusPath='focusable-list-10' data={data1} title='Continuar assistindo' />
+        <Categoria focusPath='focusable-list-10' data={data2} title='Em alta' />
+      </div>
+      <div>
+        <FocusableList focusPath='focusable-list-12' data={data1} />
       </div>
     </div>
   );

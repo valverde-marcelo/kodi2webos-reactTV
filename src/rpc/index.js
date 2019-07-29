@@ -3,6 +3,7 @@ import { endpoint } from '../config';
 import WebSocketAsPromised from 'websocket-as-promised';
 
 const logger = debug('import rpc/index');
+logger("websocket");
 
 const wsp = new WebSocketAsPromised(endpoint, {
   packMessage: data => JSON.stringify(data),
