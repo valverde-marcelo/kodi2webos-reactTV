@@ -13,7 +13,8 @@
     "start": "webpack-dev-server --progress --colors",
     "build": "webpack",
     "build-prod": "cross-env NODE_ENV=production yarn build",
-    "run-webos": "yarn build-prod && react-tv-cli run-webos"
+    "run-webos": "yarn build-prod && react-tv-cli run-webos",
+    "server": "node ./server/server.js"
   },
   "license": "MIT",
   "devDependencies": {
