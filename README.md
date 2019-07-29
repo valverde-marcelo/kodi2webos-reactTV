@@ -24,8 +24,11 @@ we use websockets (websocket-as-promised) to get all data, instead of "http requ
 see JSON-RPC-API https://kodi.wiki/view/JSON-RPC_API
 
 if you want to emulate a local server, for testing:
+
 $ cd /server
+
 $ yarn install
+
 $ node server.js
 
 by default the server will listen on localhost and port 9090. Edit if necessary.
@@ -44,3 +47,16 @@ Example:
 2) The websocket implementation will ensure that the reply message has the same "id" as the sent message, otherwise it will be discarded.
 
 3) In the configuration file, change the "is_static" variable to "true" to resolve all external image urls to a static image.
+
+## Install and run...
+
+$ git clone
+
+$ cd kodi2webos
+
+$ yarn install
+
+$ yarn run
+
+To run on an emulator or smart tv, see: http://webostv.developer.lge.com/sdk/installation/#
+Follow the steps in the article: https://medium.com/@raphamorim/developing-for-tvs-with-react-tv-b5b5204964ef
