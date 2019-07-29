@@ -1,4 +1,4 @@
-# kodi2webos [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)]
+# kodi2webos ![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)
 A Kodi client for LG Smart TVs with webOS - experimental!!
 
 ## inspirations, tools, and more...
