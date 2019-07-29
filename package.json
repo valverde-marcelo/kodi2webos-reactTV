@@ -1,0 +1,43 @@
+{
+  "name": "kodi2webos",
+  "version": "0.1.0",
+  "react-tv": {
+    "files": [
+      "index.html",
+      "bundle.js",
+      "style.css"
+    ]
+  },
+  "scripts": {
+    "react-tv-cli": "react-tv-cli",
+    "start": "webpack-dev-server --progress --colors",
+    "build": "webpack",
+    "build-prod": "cross-env NODE_ENV=production yarn build",
+    "run-webos": "yarn build-prod && react-tv-cli run-webos"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
+    "cross-env": "^5.1.1",
+    "react": "^16.2.0",
+    "react-tv": "^0.4.3",
+    "react-tv-cli": "^0.4.3",
+    "react-tv-navigation": "^0.4.3",
+    "webpack": "^3.8.1",
+    "webpack-dev-server": "^2.9.4"
+  },
+  "dependencies": {
+    "css-loader": "^3.1.0",
+    "node-sass": "^4.12.0",
+    "react-dom": "^16.8.6",
+    "react-key-navigation": "^0.0.13",
+    "sass-loader": "^7.1.0",
+    "shortid": "^2.2.14",
+    "style-loader": "^0.23.1",
+    "websocket-as-promised": "^0.10.1"
+  }
+}
