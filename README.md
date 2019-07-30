@@ -17,11 +17,13 @@ Pass the Remote: User Input on TV Devices https://medium.com/netflix-techblog/pa
 How to implement Netflix slider with React and hooks https://levelup.gitconnected.com/how-to-implement-netflix-slider-with-react-and-hooks-bdb9b99d1ce4?gi=521ebd0d4dee
 
 ## First of all - configure!
-open src/config/index.js and edit.
-set the host and ports from your local Kodi installation
+Open src/config/index.js and edit.
+
+Set the host and ports from your local Kodi installation
 
 we use websockets (websocket-as-promised) to get all data, instead of "http request/get" due to CORS restrictions
-see JSON-RPC-API https://kodi.wiki/view/JSON-RPC_API
+
+See JSON-RPC-API https://kodi.wiki/view/JSON-RPC_API
 
 if you want to emulate a local server, for testing:
 
@@ -62,6 +64,8 @@ To run on an emulator or smart tv, see: http://webostv.developer.lge.com/sdk/ins
 Follow the steps in the article: https://medium.com/@raphamorim/developing-for-tvs-with-react-tv-b5b5204964ef
 
 ## Goal!
+
+develop something that looks like this:
 
 ![alt text](https://img.ibxk.com.br/2019/03/22/netflix-22141026148281.jpg)
 
