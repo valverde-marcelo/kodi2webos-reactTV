@@ -1,5 +1,8 @@
-# kodi2webos ![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)
+# kodi2webos ![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg) [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)(https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=MX8LMBWFQY734&item_name=Donations+to+fund+application+development.&currency_code=USD&source=url)
 A Kodi client for LG Smart TVs with webOS - experimental!!
+
+## Donations to continue...
+[![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=MX8LMBWFQY734&item_name=Donations+to+fund+application+development.&currency_code=USD&source=url)
 
 ## inspirations, tools, and more...
 websocket-as-promised https://github.com/vitalets/websocket-as-promised
