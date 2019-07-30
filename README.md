@@ -83,6 +83,7 @@ develop something that looks like this:
   - [ ] Vertical List
   - [ ] Movies | TV Shows details
   - [ ] Background image
+  - [ ] Create a Video Player
 - [ ] Test key navigation
 - [ ] Publish to LG Store 
 - [ ] Documentation
