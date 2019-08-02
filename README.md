@@ -1,5 +1,8 @@
-# kodi2webos
+# kodi2webos ![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg) [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=MX8LMBWFQY734&item_name=Donations+to+fund+application+development.&currency_code=USD&source=url)
 A Kodi client for LG Smart TVs with webOS - experimental!!
+
+## Donations to continue...
+[![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=MX8LMBWFQY734&item_name=Donations+to+fund+application+development.&currency_code=USD&source=url)
 
 ## inspirations, tools, and more...
 websocket-as-promised https://github.com/vitalets/websocket-as-promised
@@ -17,11 +20,13 @@ Pass the Remote: User Input on TV Devices https://medium.com/netflix-techblog/pa
 How to implement Netflix slider with React and hooks https://levelup.gitconnected.com/how-to-implement-netflix-slider-with-react-and-hooks-bdb9b99d1ce4?gi=521ebd0d4dee
 
 ## First of all - configure!
-open src/config/index.js and edit.
-set the host and ports from your local Kodi installation
+Open src/config/index.js and edit.
+
+Set the host and ports from your local Kodi installation
 
 we use websockets (websocket-as-promised) to get all data, instead of "http request/get" due to CORS restrictions
-see JSON-RPC-API https://kodi.wiki/view/JSON-RPC_API
+
+See JSON-RPC-API https://kodi.wiki/view/JSON-RPC_API
 
 if you want to emulate a local server, for testing:
 
@@ -60,3 +65,25 @@ $ yarn run
 
 To run on an emulator or smart tv, see: http://webostv.developer.lge.com/sdk/installation/#
 Follow the steps in the article: https://medium.com/@raphamorim/developing-for-tvs-with-react-tv-b5b5204964ef
+
+## Goal!
+
+develop something that looks like this:
+
+![alt text](https://img.ibxk.com.br/2019/03/22/netflix-22141026148281.jpg)
+
+## WIP
+- [x] websocket send/request communication
+  - [x] list movies/tvshows
+  - [x] works in browser
+  - [x] works in webos
+- [ ] Design interface
+  - [ ] Sections: Movies | TV Shows | Settings
+  - [ ] Horizontal List - Categories (Recently added, in progress, genres...)
+  - [ ] Vertical List
+  - [ ] Movies | TV Shows details
+  - [ ] Background image
+  - [ ] Create a Video Player
+- [ ] Test key navigation
+- [ ] Publish to LG Store 
+- [ ] Documentation
