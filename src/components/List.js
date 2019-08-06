@@ -3,7 +3,7 @@ import ReactTV from 'react-tv';
 
 import { Focusable, HorizontalList } from 'react-key-navigation';
 
-import debug from './util/debug.js';
+import debug from '../util/debug.js';
 
 const logger = debug('List');
 logger('Iniciou List');

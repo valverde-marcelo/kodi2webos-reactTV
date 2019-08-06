@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactTV from 'react-tv';
 
-import Sidebar from './Sidebar.js'
-import List from './List.js'
-import Search from './Search.js'
+import Sidebar from './components/Sidebar'
+import List from './components/List'
+import Search from './components/Search'
 
 import Navigation, { VerticalList, HorizontalList } from 'react-key-navigation'
 
