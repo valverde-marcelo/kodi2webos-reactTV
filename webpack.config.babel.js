@@ -4,7 +4,7 @@ const webpack = require('webpack');
 const sourcePath = path.join(__dirname, 'src');
 
 const config = {
-  entry: ['babel-polyfill', path.resolve(sourcePath, 'index.js')],
+  entry: ['babel-polyfill', path.resolve(sourcePath, 'App.js')],
   output: {
     path: __dirname,
     filename: 'bundle.js',
@@ -22,13 +22,9 @@ const config = {
         include: sourcePath,
       },
       {
-        test: /\.(s*)css$/, // match any .scss or .css file, 
-        use: [
-          "style-loader", 
-          "css-loader", 
-          "sass-loader" 
-        ]
-      },
+        test: /\.css$/,
+        loader: 'style!css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]' 
+      }
     ],
   },
   plugins: [],

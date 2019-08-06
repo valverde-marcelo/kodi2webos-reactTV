@@ -1,41 +1,86 @@
-import React, { useState, useEffect } from "react";
+import React from 'react';
+import ReactTV from 'react-tv';
+
+import Sidebar from './Sidebar.js'
+import List from './List.js'
+import Search from './Search.js'
+
 import Navigation, { VerticalList, HorizontalList } from 'react-key-navigation'
-import FocusablePoster from './components/Poster';
-import FocusableList from './components/List';
-import Categoria from './components/Categoria';
-import useFetch from './useFetch';
+
 import {getMovies} from './rpc/video-library.js';
+import { wsp } from './rpc/index.js';
+import { generate as uuid } from 'shortid';
+import { imageFixURL } from './util';
 
 import debug from './util/debug.js';
 
 const logger = debug('App');
-logger('iniciou App');
+logger('Iniciou App');
 
-function App(props) {
+class ReactTVApp extends React.Component {
+  constructor() {
+    super();
 
-  //recupera os dados do websocket
-  const data1 = useFetch(getMovies(0,5));
+    this.state = {
+      active: null,
+      data: []
+    }
 
-  const data2 = useFetch(getMovies(5,10));
+    this.lists = ["Title 1"]
+  }
 
-  return (
-    <div>
-      <div className='title'>React-TV Template</div>
-      <div className='focus-info'>You're focused on: {props.currentFocusPath}</div>
-      <div className='posters'>
-        <FocusablePoster focusPath='focusable-poster-1' src={'https://upload.wikimedia.org/wikipedia/en/1/15/Dunkirk_Film_poster.jpg'} />
-        <FocusablePoster focusPath='focusable-poster-2' src={'https://upload.wikimedia.org/wikipedia/en/8/8a/Dark_Knight.jpg'} />
-        <FocusablePoster focusPath='focusable-poster-3' src={'https://upload.wikimedia.org/wikipedia/en/b/bc/Interstellar_film_poster.jpg'} />
-      </div>
-      <div>
-        <Categoria focusPath='focusable-list-10' data={data1} title='Continuar assistindo' />
-        <Categoria focusPath='focusable-list-10' data={data2} title='Em alta' />
-      </div>
-      <div>
-        <FocusableList focusPath='focusable-list-12' data={data1} />
-      </div>
-    </div>
-  );
+  async componentDidMount() {
+    try {
+      const request = getMovies(5,10);
+      const id = uuid();
+
+      await wsp.open(); //aguardar a conexao abrir
+      let data = await wsp.sendRequest(request, { requestId: id }); //apos conexao aberta, enviar requisição
+      logger("mensagem recebida: " + data.id);
+
+      //corrigir o encoded das URLs de imagens
+      if (data && data.result && data.result.movies.length > 0) {
+        data.result.movies.forEach(imageFixURL);
+      }
+
+      this.setState({ data: data });
+
+    } catch (error) {
+      logger(error);
+    }
+
+  }
+
+  changeFocusTo(index) {
+    this.setState({active: index});
+  }
+
+  onBlurLists() {
+    this.setState({active: null});
+  }
+
+  render() {
+    return (
+      <Navigation>
+        <div id="container">
+          <HorizontalList>
+            <Sidebar/>
+            <div class="mainbox">
+              <VerticalList navDefault>
+                <Search/>
+                <VerticalList id="content" onBlur={() => this.onBlurLists()}>
+                  
+                 {this.lists.map((list, i) =>
+                    <List key={i} data={this.state.data} title={list} onFocus={() => this.changeFocusTo(i)} visible={this.state.active !== null ? i >= this.state.active : true}/>
+                  )}
+                </VerticalList>
+              </VerticalList>
+            </div>
+          </HorizontalList>
+        </div>
+      </Navigation>
+    );
+  }
 }
 
-export default App;
+ReactTV.render(<ReactTVApp />, document.querySelector('#root'));
