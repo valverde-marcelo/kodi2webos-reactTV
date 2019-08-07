@@ -22,7 +22,9 @@ class ToogleItem extends React.Component {
       <Focusable onFocus={() => this.setState({ active: true })}
         onBlur={() => this.setState({ active: false })}
         onEnterDown={() => logger(this.props.id)}>
-        <div id={this.props.id} class={'item ' + (this.state.active ? 'item-focus' : '')}></div>
+        <div id={this.props.id} class={'item ' + (this.state.active ? 'item-focus' : '')}>
+          <img src={this.props.src} />
+        </div>
       </Focusable>
     );
   }
@@ -60,20 +62,19 @@ export default class List extends React.Component {
   }
 
   render() {
-    logger(this.props.data);
     return (
       <div class={"contentgroup " + (this.props.visible ? '' : 'fading-out')}>
         <h1>{this.props.title}</h1>
         <div class="content" ref={(content) => { this.content = content }}>
           <HorizontalList class="hz-list"
-            key={this.props.title}
+            key={this.props.id}
             style={{ overflow: 'hidden', display: 'block' }}
             onFocus={(index) => this.onFocus(index)}
             onBlur={() => { this._lastFocus = null }}>
             
-            <ToogleItem id={this.props.title + '_1'} />
-            <ToogleItem id={this.props.title + '_2'} />
-            <ToogleItem id={this.props.title + '_3'} />
+            {this.props.data.map((item, i) =>
+              <ToogleItem key={item.movieid} id={item.movieid} src={item.thumbnail}/>
+            )}
 
           </HorizontalList>
         </div>
@@ -81,13 +82,3 @@ export default class List extends React.Component {
     );
   }
 }
-
-/*
-
-{this.props.data.result && this.props.data.result.movies.length > 0 && (
-              this.props.data.result.movies.map((movie, i) => (
-                <ToogleItem id={i} key={i} />
-              ))
-            )}
-
-*/
