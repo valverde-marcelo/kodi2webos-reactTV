@@ -17,6 +17,16 @@ import debug from './util/debug.js';
 const logger = debug('App');
 logger('Iniciou App');
 
+class Collection {
+  constructor() {
+    this.title = null;
+    this.itens = [];
+    this.msgID = uuid();
+    this.request = null;
+    this.response = null;
+  }
+}
+
 class ReactTVApp extends React.Component {
   constructor() {
     super();
@@ -26,24 +36,58 @@ class ReactTVApp extends React.Component {
       data: []
     }
 
-    this.lists = ["Title 1"]
+    this.collections = [];
   }
 
   async componentDidMount() {
     try {
-      const request = getMovies(5,10);
-      const id = uuid();
 
       await wsp.open(); //aguardar a conexao abrir
-      let data = await wsp.sendRequest(request, { requestId: id }); //apos conexao aberta, enviar requisição
-      logger("mensagem recebida: " + data.id);
 
+      /** coleção Continuar Assitindo */
+      let collContinue = new Collection();
+      collContinue.title = "Continuar assistindo";
+      collContinue.request = getMovies(0,5);
+      collContinue.response = await wsp.sendRequest(collContinue.request, { requestId: collContinue.msgID }); //apos conexao aberta, enviar requisição
+      logger("mensagem recebida: " + collContinue.response.id);
+      
       //corrigir o encoded das URLs de imagens
-      if (data && data.result && data.result.movies.length > 0) {
-        data.result.movies.forEach(imageFixURL);
+      if (collContinue.response && collContinue.response.result && collContinue.response.result.movies.length > 0) {
+        collContinue.response.result.movies.forEach(imageFixURL);
+        collContinue.itens = collContinue.response.result.movies;
+        this.collections.push(collContinue);
       }
 
-      this.setState({ data: data });
+      /** coleção Adiconados recentemente */
+      let collRecents = new Collection();
+      collRecents.title = "Adicionados recentemente";
+      collRecents.request = getMovies(5,10);
+      collRecents.response = await wsp.sendRequest(collRecents.request, { requestId: collRecents.msgID }); //apos conexao aberta, enviar requisição
+      logger("mensagem recebida: " + collRecents.response.id);
+      
+      //corrigir o encoded das URLs de imagens
+      if (collRecents.response && collRecents.response.result && collRecents.response.result.movies.length > 0) {
+        collRecents.response.result.movies.forEach(imageFixURL);
+        collRecents.itens = collRecents.response.result.movies;
+        this.collections.push(collRecents);
+      }
+
+      /** coleção Ação */
+      let collAction = new Collection();
+      collAction.title = "Ação";
+      collAction.request = getMovies(10,15);
+      collAction.response = await wsp.sendRequest(collAction.request, { requestId: collAction.msgID }); //apos conexao aberta, enviar requisição
+      logger("mensagem recebida: " + collAction.response.id);
+      
+      //corrigir o encoded das URLs de imagens
+      if (collAction.response && collAction.response.result && collAction.response.result.movies.length > 0) {
+        collAction.response.result.movies.forEach(imageFixURL);
+        collAction.itens = collAction.response.result.movies;
+        this.collections.push(collAction);
+      }
+
+      /** IMPORTANTE  */
+      this.setState({ data: [] }); //força a re-renderização
 
     } catch (error) {
       logger(error);
@@ -60,6 +104,7 @@ class ReactTVApp extends React.Component {
   }
 
   render() {
+    logger(this.collections);
     return (
       <Navigation>
         <div id="container">
@@ -68,10 +113,9 @@ class ReactTVApp extends React.Component {
             <div class="mainbox">
               <VerticalList navDefault>
                 <Search/>
-                <VerticalList id="content" onBlur={() => this.onBlurLists()}>
-                  
-                 {this.lists.map((list, i) =>
-                    <List key={i} data={this.state.data} title={list} onFocus={() => this.changeFocusTo(i)} visible={this.state.active !== null ? i >= this.state.active : true}/>
+                <VerticalList id="content" onBlur={() => this.onBlurLists()}>          
+                 {this.collections.map((collection, i) =>
+                    <List key={i} data={collection.itens} title={collection.title} onFocus={() => this.changeFocusTo(i)} visible={this.state.active !== null ? i >= this.state.active : true}/>
                   )}
                 </VerticalList>
               </VerticalList>
