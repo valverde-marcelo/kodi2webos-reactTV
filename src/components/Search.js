@@ -22,7 +22,7 @@ export default class Search extends React.Component {
 
   onEnterDown(event, navigation) {
     console.log('enter pressed');
-    navigation.forceFocus('sidebar');
+    navigation.forceFocus('sidebar'); // Altera o foco para outro componente
   }
 
   render() {

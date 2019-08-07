@@ -104,7 +104,7 @@ class ReactTVApp extends React.Component {
   }
 
   render() {
-    logger(this.collections);
+    logger("render ");
     return (
       <Navigation>
         <div id="container">
