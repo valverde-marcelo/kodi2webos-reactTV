@@ -152,8 +152,7 @@ html, body {
 
 #content .item {
   display: inline-block;
-  width: 200px;
-  height: 200px;
+  flex: 0 0 12%;
   padding-bottom: 50px;
   background-color: #666;
   font-size: 1rem;

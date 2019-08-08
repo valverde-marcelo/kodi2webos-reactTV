@@ -1,9 +1,10 @@
 import React from 'react';
 import ReactTV from 'react-tv';
 
-import Sidebar from './components/Sidebar'
-import List from './components/List'
-import Search from './components/Search'
+import Sidebar from './components/Sidebar';
+import List from './components/List';
+import Search from './components/Search';
+import Details from './components/Details';
 
 import Navigation, { VerticalList, HorizontalList } from 'react-key-navigation';
 
@@ -113,6 +114,7 @@ class ReactTVApp extends React.Component {
             <div class="mainbox">
               <VerticalList navDefault>
                 <Search/>
+                <Details/>
                 <VerticalList id="content" onBlur={() => this.onBlurLists()}>          
                  {this.collections.map((collection, i) =>
                     <List key={i} data={collection.itens} title={collection.title} onFocus={() => this.changeFocusTo(i)} visible={this.state.active !== null ? i >= this.state.active : true}/>
