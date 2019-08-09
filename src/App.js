@@ -5,10 +5,11 @@ import Sidebar from './components/Sidebar';
 import List from './components/List';
 import Search from './components/Search';
 import Details from './components/Details';
+import Content from './components/Content';
 
 import Navigation, { VerticalList, HorizontalList } from 'react-key-navigation';
 
-import {getMovies} from './rpc/video-library.js';
+import { getMovies } from './rpc/video-library.js';
 import { wsp } from './rpc/index.js';
 import { generate as uuid } from 'shortid';
 import { imageFixURL } from './util';
@@ -34,7 +35,8 @@ class ReactTVApp extends React.Component {
 
     this.state = {
       active: null,
-      data: []
+      data: [],
+      loading: true
     }
 
     this.collections = [];
@@ -48,10 +50,10 @@ class ReactTVApp extends React.Component {
       /** coleção Continuar Assitindo */
       let collContinue = new Collection();
       collContinue.title = "Continuar assistindo";
-      collContinue.request = getMovies(0,5);
+      collContinue.request = getMovies(0, 5);
       collContinue.response = await wsp.sendRequest(collContinue.request, { requestId: collContinue.msgID }); //apos conexao aberta, enviar requisição
       logger("mensagem recebida: " + collContinue.response.id);
-      
+
       //corrigir o encoded das URLs de imagens
       if (collContinue.response && collContinue.response.result && collContinue.response.result.movies.length > 0) {
         collContinue.response.result.movies.forEach(imageFixURL);
@@ -62,10 +64,10 @@ class ReactTVApp extends React.Component {
       /** coleção Adiconados recentemente */
       let collRecents = new Collection();
       collRecents.title = "Adicionados recentemente";
-      collRecents.request = getMovies(5,10);
+      collRecents.request = getMovies(5, 10);
       collRecents.response = await wsp.sendRequest(collRecents.request, { requestId: collRecents.msgID }); //apos conexao aberta, enviar requisição
       logger("mensagem recebida: " + collRecents.response.id);
-      
+
       //corrigir o encoded das URLs de imagens
       if (collRecents.response && collRecents.response.result && collRecents.response.result.movies.length > 0) {
         collRecents.response.result.movies.forEach(imageFixURL);
@@ -76,10 +78,10 @@ class ReactTVApp extends React.Component {
       /** coleção Ação */
       let collAction = new Collection();
       collAction.title = "Ação";
-      collAction.request = getMovies(10,15);
+      collAction.request = getMovies(10, 15);
       collAction.response = await wsp.sendRequest(collAction.request, { requestId: collAction.msgID }); //apos conexao aberta, enviar requisição
       logger("mensagem recebida: " + collAction.response.id);
-      
+
       //corrigir o encoded das URLs de imagens
       if (collAction.response && collAction.response.result && collAction.response.result.movies.length > 0) {
         collAction.response.result.movies.forEach(imageFixURL);
@@ -88,7 +90,7 @@ class ReactTVApp extends React.Component {
       }
 
       /** IMPORTANTE  */
-      this.setState({ data: [] }); //força a re-renderização
+      this.setState({ loading: false }); //força a re-renderização
 
     } catch (error) {
       logger(error);
@@ -97,29 +99,41 @@ class ReactTVApp extends React.Component {
   }
 
   changeFocusTo(index) {
-    this.setState({active: index});
+    this.setState({ active: index });
   }
 
   onBlurLists() {
-    this.setState({active: null});
+    this.setState({ active: null });
   }
 
   render() {
+    const loading = this.state.loading;
+
     logger("render ");
+    if(loading === false) {
+    logger(this.collections[0].itens[0]);
+    }
+
+    
     return (
       <Navigation>
         <div id="container">
           <HorizontalList>
-            <Sidebar/>
+            <Sidebar />
             <div class="mainbox">
               <VerticalList navDefault>
-                <Search/>
-                <Details/>
-                <VerticalList id="content" onBlur={() => this.onBlurLists()}>          
-                 {this.collections.map((collection, i) =>
-                    <List key={i} data={collection.itens} title={collection.title} onFocus={() => this.changeFocusTo(i)} visible={this.state.active !== null ? i >= this.state.active : true}/>
+                <Search />
+                {loading ?
+                  (<div id='loading'/>) : (
+                    <div>
+                      <VerticalList id="content" onBlur={() => this.onBlurLists()}>
+                      <Content movie={this.collections[0].itens[0]}/>
+                        {this.collections.map((collection, i) =>
+                          <List key={i} data={collection.itens} title={collection.title} onFocus={() => this.changeFocusTo(i)} visible={this.state.active !== null ? i >= this.state.active : true} />
+                        )}
+                      </VerticalList>
+                    </div>
                   )}
-                </VerticalList>
               </VerticalList>
             </div>
           </HorizontalList>

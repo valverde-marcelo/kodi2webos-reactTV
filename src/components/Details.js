@@ -6,7 +6,6 @@ import { Focusable } from 'react-key-navigation'
 export default class Details extends React.Component {
     constructor() {
         super();
-
         this.state = {
             active: false
         }
@@ -18,10 +17,12 @@ export default class Details extends React.Component {
 
     render() {
         return (
-            <div id="details" class={this.state.active ? 'focused' : ''}>
-                <div id="icons">
-                    <div><span class="fa fa-home"></span></div>
+            <div class="details">
+                <div class="background">
+                    <div class="left">left</div>
+                    <div class="right">right</div>
                 </div>
+                <div class="details-container">content here...</div>
             </div>
         );
     }

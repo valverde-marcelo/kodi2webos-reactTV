@@ -22,7 +22,7 @@ const config = {
         include: sourcePath,
       },
       {
-        test: /\.css$/,
+        test: /\.(s*)css$/,
         loader: "css-loader",
         options: {
           modules: {
