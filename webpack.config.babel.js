@@ -1,5 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 const sourcePath = path.join(__dirname, 'src');
 
@@ -38,7 +39,15 @@ const config = {
 
 if (process.env.NODE_ENV === 'production') {
   config.plugins.push(
-    new webpack.optimize.UglifyJsPlugin()
+    new UglifyJsPlugin({
+      uglifyOptions: {
+        warnings: false,
+        ie8: false,
+        output: {
+          comments: false
+        }
+      }
+    })
   );
   config.plugins.push(
     new webpack.DefinePlugin({

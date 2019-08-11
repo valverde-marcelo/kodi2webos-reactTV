@@ -23,7 +23,8 @@
     "react-dom": "^16.8.6",
     "react-fontawesome": "^1.6.1",
     "react-key-navigation": "0.0.9",
-    "react-tv": "^0.4.3"
+    "react-tv": "^0.4.3",
+    "uglifyjs-webpack-plugin": "^2.2.0"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
