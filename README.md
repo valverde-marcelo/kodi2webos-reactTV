@@ -72,6 +72,10 @@ develop something that looks like this:
 
 ![alt text](https://img.ibxk.com.br/2019/03/22/netflix-22141026148281.jpg)
 
+## Screenshots
+
+![](https://github.com/valverde-marcelo/kodi2webos/raw/youtube-react-tv-branch/doc/LG-webOS-TV-Emulator-4.0.0-_Executando_-Oracle-VM-VirtualBox-10_08_2019-21_29_52.gif)
+
 ## WIP
 - [x] websocket send/request communication
   - [x] list movies/tvshows
