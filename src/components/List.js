@@ -10,7 +10,7 @@ logger('Iniciou List');
 
 class ToogleItem extends React.Component {
   constructor(props) {
-    super(props);
+    super();
 
     this.state = {
       active: false

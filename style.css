@@ -2,9 +2,21 @@ html, body {
   padding: 0;
   margin: 0;
   height: 100%;
-  background-color: #444;
+  background-color: rgb(0, 0, 0);
   font-family: sans-serif;
   overflow: hidden;
+}
+
+.centered {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transform: -webkit-translate(-50%, -50%);
+  transform: -moz-translate(-50%, -50%);
+  transform: -ms-translate(-50%, -50%);
+  color: darkred;
+  font-weight: bold;
 }
 
 :focus {

@@ -6,6 +6,8 @@ import List from './components/List';
 import Search from './components/Search';
 import Details from './components/Details';
 import Content from './components/Content';
+import MoonLoader from '@bit/davidhu2000.react-spinners.moon-loader';
+
 
 import Navigation, { VerticalList, HorizontalList } from 'react-key-navigation';
 
@@ -44,6 +46,8 @@ class ReactTVApp extends React.Component {
 
   async componentDidMount() {
     try {
+
+      setInterval(function(){ logger('carregando'); }, 5000);
 
       await wsp.open(); //aguardar a conexao abrir
 
@@ -110,13 +114,45 @@ class ReactTVApp extends React.Component {
     const loading = this.state.loading;
 
     logger("render ");
-    if(loading === false) {
-    logger(this.collections[0].itens[0]);
+    if (loading === false) {
+      logger(this.collections[0].itens[0]);
     }
 
-    
+
     return (
       <Navigation>
+        {loading ?
+          (<div id='loading' class='centered'>
+            <MoonLoader color='#E50914' size={100} />
+            <div><p>...Carregando...</p></div>
+          </div>) : (
+            <div id="container">
+              <HorizontalList>
+                <Sidebar />
+                <div class="mainbox">
+                  <VerticalList navDefault>
+                    <Search />
+                    <div>
+                      <VerticalList id="content" onBlur={() => this.onBlurLists()}>
+
+                        {this.collections.map((collection, i) =>
+                          <List key={i} data={collection.itens} title={collection.title} onFocus={() => this.changeFocusTo(i)} visible={this.state.active !== null ? i >= this.state.active : true} />
+                        )}
+                      </VerticalList>
+                    </div>
+                  </VerticalList>
+                </div>
+              </HorizontalList>
+            </div>)}
+      </Navigation>
+    );
+  }
+}
+
+ReactTV.render(<ReactTVApp />, document.querySelector('#root'));
+
+/*
+<Navigation>
         <div id="container">
           <HorizontalList>
             <Sidebar />
@@ -124,10 +160,10 @@ class ReactTVApp extends React.Component {
               <VerticalList navDefault>
                 <Search />
                 {loading ?
-                  (<div id='loading'/>) : (
+                  (<div id='loading' />) : (
                     <div>
                       <VerticalList id="content" onBlur={() => this.onBlurLists()}>
-                      <Content movie={this.collections[0].itens[0]}/>
+                        <Content movie={this.collections[0].itens[0]} />
                         {this.collections.map((collection, i) =>
                           <List key={i} data={collection.itens} title={collection.title} onFocus={() => this.changeFocusTo(i)} visible={this.state.active !== null ? i >= this.state.active : true} />
                         )}
@@ -139,8 +175,6 @@ class ReactTVApp extends React.Component {
           </HorizontalList>
         </div>
       </Navigation>
-    );
-  }
-}
 
-ReactTV.render(<ReactTVApp />, document.querySelector('#root'));
+
+*/
